@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,23 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', 'AuthController@login');
-
 Route::get('/logout/{user_id}', 'AuthController@logout');
-
 Route::post('/register', 'AuthController@register');
+Route::post('/support', 'SupportController@save');
 
-Route::get('/users', 'UserController@users');
-
-Route::get('/user/{user_id}', 'UserController@user');
-
-Route::get('/menus', 'MenuController@menus');
-
-Route::post('/menus', 'MenuController@save');
-
-Route::get('/menu/{menu_id}', 'MenuController@menu');
-
-Route::get('/contents', 'ContentController@contents');
-
-Route::get('/content/{menu_id}', 'ContentController@conten');
-
-Route::post('/content', 'ContentContrller@save');
+Route::group(['middleware' => 'jwt.verify'], static function( $router){
+    Route::get('/users', 'UserController@getUsers');
+    Route::get('/user/{user_id}', 'UserController@getUser');
+    Route::get('/menus', 'MenuController@getMenus');
+    Route::get('/menu/{menu_id}', 'MenuController@getMenu');
+    Route::get('/contents', 'ContentController@getContents');
+    Route::get('/content/{content_id}', 'ContentController@getContent');
+    Route::get('/content/menu/{content_id}', 'ContentController@getContentByMenu');
+    Route::post('/menus', 'MenuController@save');
+    Route::post('/content', 'ContentController@save');
+});
