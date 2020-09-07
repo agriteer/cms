@@ -7,13 +7,6 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    protected $model;
-
-    public function __constructor(Menu $content)
-    {
-        $this->model = $content;
-    }
-
     public function save(Request $request)
     {
         $content = Menu::create([

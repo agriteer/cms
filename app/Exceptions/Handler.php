@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -84,6 +85,17 @@ class Handler extends ExceptionHandler
                             ]
                         ]);
                 break;
+        
+                case ($exception instanceof TokenExpiredException):
+                    return response()->json([
+                                'data' => null,
+                                'status' => false,
+                                'err_' => [
+                                    'message' => 'Token Expired',
+                                    'code' => 1
+                                ]
+                            ]);
+                    break;
             case ($exception->getMessage() === 'Token not provided'):
                 return response()->json([
                             'data' => null,
