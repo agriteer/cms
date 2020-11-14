@@ -27,4 +27,15 @@ class MenuController extends Controller
     {
         return Menu::with('content')->find(['menu_id' => $menu_id])->first();
     }
+
+    public function updateMenu($id, Request $request)
+    {
+        $menu = Menu::find($id);
+
+        $menu->name = $request->name;
+        $menu->status = $request->status;
+        $menu->save();
+        
+        return $menu;
+    }
 }

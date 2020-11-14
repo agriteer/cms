@@ -34,11 +34,25 @@ class ContentController extends Controller
 
     public function getContent($content_id)
     {
-        return Content::findById($content_id)->first();
+        return Content::find($content_id)->first();
     }
 
     public function getContentByMenu($menu_id)
     {
         return Content::findByMenuId($menu_id)->first();
+    }
+
+    public function updateContent($content_id, Request $request)
+    {
+        $content = Content::find($content_id);
+
+        $content->user_id = $request->user_id;
+        $content->menu_id = $request->menu_id;
+        $content->section_name = $request->section_name;
+        $content->content = $request->content;
+        $content->status = $request->status;
+        $content->save();
+
+        return $content;
     }
 }
