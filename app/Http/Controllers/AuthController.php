@@ -25,12 +25,12 @@ class AuthController extends Controller
             throw new InvalidLoginException();
         }
 
-        return $this->successResponse($token, 'Login successful');
+        return $this->successResponse($token, 'Login successful', 200);
     }
 
     public function register(Request $request)
     {
-        $content = User::create([
+        $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'first_name' => $request->first_name,
@@ -40,7 +40,7 @@ class AuthController extends Controller
             'role_id' => 1
         ]);
 
-        return $content;
+        return $user;
     }
 
     public function logout(): JsonResponse
@@ -71,5 +71,16 @@ class AuthController extends Controller
         ];
 
         return $this->successResponse($data, 'Successfully refreshed');
+    }
+
+    public function home()
+    {
+        $data = [
+            'status' => true,
+            'data' => null,
+            'err' => null
+        ];
+
+        return $this->successResponse($data, 'Successfully refreshed', 200);
     }
 }
