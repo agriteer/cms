@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/home', function () {
+    return response()->json(['message' => 'Welcome to Agriteer'], 200);
+});
+
 Route::group(['prefix' => 'v1', 'middleware' => 'agriteer.auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::get('/logout/{user_id}', 'AuthController@logout');
