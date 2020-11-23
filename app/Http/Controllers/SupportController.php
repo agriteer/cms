@@ -25,20 +25,24 @@ class SupportController
         ]);
 
         if (env('APP_ENV') !== 'testing') {
-            $this->sendEmail($support);
-            $this->sendUserMail($support);
+            $this->sendUserEmail($support);
+            $this->sendAdminMail($support);
         }
 
-        return $support;
+        return response()->json($support);
     }
 
-    public function sendEmail($request)
+    public function sendUserEmail($request)
     {
-        return $this->mail->sendUserEmail($request);
+        $mail = app(MailService::class);
+
+        return $mail->sendUserEmail($request);
     }
 
-    public function sendUserMail($request)
+    public function sendAdminMail($request)
     {
-        return $this->mail->sendAdminContact($request);
+        $mail = app(MailService::class);
+        
+        return $mail->sendAdminContact($request);
     }
 }
