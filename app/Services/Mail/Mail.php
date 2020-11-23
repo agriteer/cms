@@ -18,7 +18,7 @@ class Mail
      */
     public function setKey()
     {
-        $this->secretKey = 'fijsi$dngJNE123o45nk%&jfsIUWh3ZZz';
+        $this->secretKey = env('EMAIL_SERVICE_KEY');
     }
 
     /**
@@ -26,7 +26,7 @@ class Mail
      */
     public function setBaseUrl()
     {
-        $this->baseUrl = 'https://email.agriteer.com/api/v1';
+        $this->baseUrl = env('EMAIL_SERVICE_URL');
     }
 
     /**
